@@ -15,6 +15,7 @@
               
         <script src="https://cdn.jsdelivr.net/npm/boosted@5.1.3/dist/js/boosted.bundle.min.js"></script>
 
+        <?= Draw::global_style() ?>
     </head>
     <body>
         <?= Draw::header() ?>
@@ -24,7 +25,7 @@
                 $components = json_decode(file_get_contents(__DIR__ . '/page_last_version.json'), true);
                 echo array_reduce($components, function($r, $component) {
                     ['_name' => $name] = $component;
-                    return $r . Draw::{empty($component) ? 'void' : $name}($component);
+                    return $r . Draw::{empty($component) ? 'void' : str_replace('-', '_', $name)}($component);
                 }, '');
             ?>
         </div>
