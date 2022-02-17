@@ -1,0 +1,20 @@
+{
+  "name": "test-visual-editor-grafikart",
+  "private": true,
+  "version": "1.0.0",
+  "description": "test de l'éditeur visuel développé par grafikart en live sur twitch",
+  "main": "main.js",
+  "author": "Nicolas Choquet",
+  "license": "ISC",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@boxraiser/visual-editor": "^0.0.7"
+  },
+  "devDependencies": {
+    "vite": "^2.8.0"
+  }
+}
