@@ -16,6 +16,11 @@ cors();
         <link href="https://cdn.jsdelivr.net/npm/boosted@5.1.3/dist/css/orange-helvetica.min.css" rel="stylesheet">
                 
         <link href="https://cdn.jsdelivr.net/npm/boosted@5.1.3/dist/css/boosted.min.css" rel="stylesheet">
+        <style>
+            button[class^=iframe-] span::before {
+                background-color: #1771E6;
+            }
+        </style>
     </head>
 
     <body>
