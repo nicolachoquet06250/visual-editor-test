@@ -28,6 +28,8 @@
       }
 
       window.addEventListener('load', () => {
+        document.querySelector('button[aria-label=Close]')?.remove();
+        
         fetch('http://localhost:7000/current').then(r => r.text()).then(json => {
           document.querySelector('visual-editor').value = json;
           
