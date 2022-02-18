@@ -8,7 +8,7 @@
   "license": "ISC",
   "scripts": {
     "dev": "vite",
-    "build": "vite build ; cp ./localDataStorage-1.3.0.js ./dist/ ; cp ./env.json ./dist/",
+    "build": "vite build ; cp ./localDataStorage-1.3.0.js ./dist/ ; cp ./env.json ./dist/ ; cp -r ./assets/editor ./dist/assets/",
     "preview": "vite preview"
   },
   "dependencies": {
