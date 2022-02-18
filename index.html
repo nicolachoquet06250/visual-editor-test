@@ -5,6 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
+                        
+    <link href="https://cdn.jsdelivr.net/npm/boosted@5.1.3/dist/css/boosted.min.css" rel="stylesheet">
 
     <style>
       .css-ohj2oa {
@@ -13,9 +15,18 @@
     </style>
     
     <script async defer>
+      function showSpinner() {
+        document.querySelector('bs-spinner').removeAttribute('hidden');
+      }
+
+      function hideSpinner() {
+        document.querySelector('bs-spinner').setAttribute('hidden', '');
+      }
+
       function handleSavePage(e) {
-        console.log(e)
         e.preventDefault();
+        
+        showSpinner();
         
         fetch(e.target.getAttribute('action'), {
           method: e.target.getAttribute('method'),
@@ -24,14 +35,18 @@
           },
           body: document.querySelector('[name=content]').value
         }).then(r => r.json())
-        .then(json => console.log(json));
+        .then(json => {
+          hideSpinner();
+        });
       }
 
       window.addEventListener('load', () => {
         document.querySelector('button[aria-label=Close]')?.remove();
         
+        showSpinner();
         fetch('http://localhost:7000/current').then(r => r.text()).then(json => {
           document.querySelector('visual-editor').value = json;
+          hideSpinner();
           
           document.querySelector('form').addEventListener('submit', handleSavePage);
         });
@@ -46,6 +61,8 @@
                        iconsUrl="/assets/editor/[name].png"
                        value='[]'></visual-editor>
       </form>
+
+      <bs-spinner></bs-spinner>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
