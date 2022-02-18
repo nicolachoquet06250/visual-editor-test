@@ -5,7 +5,6 @@ import {
   accordion_name, Accordion,
   tariff_cartridge_name, TariffCartridge
 } from './components';
-import './style.css';
 
 let editor = new VisualEditor();
 
