@@ -10,9 +10,19 @@ php -S 0.0.0.0:7000 -t back
 ```
 
 #### Frontend ( Visual-Editor )
+##### Installation
 ```
 npm install
+```
+##### Définir un fichier **env.json** avec :
+```json
+{
+    "SERVER_URL": "<url de du serveur du site + api>"
+}
+```
 
+##### Lancer l'application
+```
 npm run dev
 ```
 
