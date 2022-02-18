@@ -13,8 +13,8 @@ export const component = {
             addLabel: 'Add a new button',
             fields: [
                 Row([
-                Text('label', { label: 'Label', default: 'Link href' }),
-                Text('url', { label: 'Link', default: '#' })
+                    Text('label', { label: 'Label', default: 'Link href' }),
+                    Text('url', { label: 'Link', default: '#' })
                 ])
             ]
         })

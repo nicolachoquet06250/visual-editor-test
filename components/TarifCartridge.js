@@ -1,4 +1,4 @@
-import { Color, HTMLText, Row, Select, Text } from '@boxraiser/visual-editor';
+import { Color, HTMLText, Row, Text } from '@boxraiser/visual-editor';
 
 export const name = 'tariff-cartridge';
 
@@ -6,25 +6,6 @@ export const component = {
     title: 'Tariff Cartridge',
     category: 'Contact',
     fields: [
-        /*Select('cartridge-color', {
-            label: 'Cartridge color',
-            help: 'Choose cartridge color',
-            default: 'gray',
-            options: [
-                {
-                    label: 'Gray',
-                    value: 'gray'
-                },
-                {
-                    label: 'Green',
-                    value: 'green'
-                },
-                {
-                    label: 'Purple',
-                    value: 'purple'
-                }
-            ]
-        }),*/
         Row([
             Color('cartridge-color', {
                 label: 'Cartridge color',

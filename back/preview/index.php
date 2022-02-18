@@ -34,11 +34,11 @@ cors();
             <body>
     HTML : '';
 ?>
-        
-<?= empty($component) ? Draw::header() : '' ?>
 
-<main role="main" id="ve-components" class="container">
-    <?= Draw::{empty($component) ? 'void' : str_replace('-', '_', $component['_name'])}($component) ?>
+<main role="main" id="ve-components">
+    <?= !empty($component) && !(strpos($component['_name'], 'nav-bar') || strpos($component['_name'], 'navbar') || strpos($component['_name'], 'header')) ? '<div class="container">' : '' ?>
+        <?= Draw::{empty($component) ? 'void' : str_replace('-', '_', $component['_name'])}($component) ?>
+    <?= !empty($component) && !(strpos($component['_name'], 'nav-bar') || strpos($component['_name'], 'navbar') || strpos($component['_name'], 'header')) ? '</div>' : '' ?>
 </main>
                 
 <?php 

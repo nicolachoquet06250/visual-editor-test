@@ -18,16 +18,22 @@
         <?= Draw::global_style() ?>
     </head>
     <body>
-        <?= Draw::header() ?>
+        <?php
+            $components = json_decode(file_get_contents(__DIR__ . '/page_last_version.json'), true);
+            
+            echo array_reduce($components, function($r, $component) {
+                ['_name' => $name] = $component;
 
-        <div id="ve-components" class="container">
-            <?php
-                $components = json_decode(file_get_contents(__DIR__ . '/page_last_version.json'), true);
-                echo array_reduce($components, function($r, $component) {
-                    ['_name' => $name] = $component;
-                    return $r . Draw::{empty($component) ? 'void' : str_replace('-', '_', $name)}($component);
-                }, '');
-            ?>
-        </div>
+                if (empty($component)) {
+                    return $r . Draw::void();
+                } else if (strpos($name, 'nav-bar') || strpos($name, 'navbar') || strpos($name, 'header')) {
+                    return $r . Draw::{str_replace('-', '_', $name)}($component);
+                }
+                return $r . 
+                    '<div id="ve-components" class="container">' . 
+                        Draw::{empty($component) ? 'void' : str_replace('-', '_', $name)}($component) . 
+                    '</div>';
+            }, '');
+        ?>
     </body>
 </html>

@@ -400,7 +400,7 @@ class Draw {
 
     public static function card_row($component) {
         $cards = "<div class=\"row\">";
-        foreach ($component['cards'] as $card) {
+        foreach ($component['cards'] as $i => $card) {
             [
                 'title' => $title,
                 'content' => $content,
@@ -418,7 +418,7 @@ class Draw {
             }
 
             $cards .= <<<HTML
-                <div class="col-12 col-md col-xl-4">
+                <div class="col-12 col-md col-xl-4 mt-2">
                     <section class="card" style="height: 100%">
                         <div class="card-body">
                             <h5 class="card-title">{$title}</h5>
@@ -527,6 +527,159 @@ class Draw {
                     </div>
                 </div>
             </div>
+        HTML;
+    }
+
+    public static function search_nav_bar($component) {
+        //echo "<pre>" . dumpInVar($component) . "</pre>";
+        [
+            'logo' => $logo,
+            'links' => $links,
+            'mode-color' => $color,
+            'opened' => $defaultOpened
+        ] = $component;
+        $preview = $component['preview'] ?? false;
+
+        function currentPageAttribute($label) {
+            return ($_GET['page'] ?? 'Home') === $label ? 'aria-current="page"' : '';
+        }
+
+        function currentPageClass($label) {
+            return ($_GET['page'] ?? 'Home') === $label ? ' active' : '';
+        }
+
+        $str_links = '';
+
+        foreach ($links as $link) {
+            [
+                'label' => $label,
+                'url' => $url
+            ] = $link;
+            $currentPageAttribute = currentPageAttribute($label);
+            $currentPageClass = currentPageClass($label);
+
+            $str_links .= "
+            <li class=\"nav-item\">
+                <a  class=\"nav-link{$currentPageClass}\" 
+                    {$currentPageAttribute}
+                    href=\"{$url}\">{$label}</a>
+            </li>
+            ";
+        }
+
+        switch ($color) {
+            case '#CCCCCC':
+                $btnMode = 'success';
+                $mode = 'light';
+                break;
+            case 'black':
+                $btnMode = 'secondary';
+                $mode = 'dark';
+                break;
+            case 'white':
+                $btnMode = 'secondary';
+                $mode = 'white';
+                break;
+            default:
+                $btnMode = 'secondary';
+                $mode = 'auto';
+        }
+
+        $id = uniqid();
+
+        $menuTogglerClassOpenedInMobile = $preview && $defaultOpened ? '' : ' collapsed';
+        $menuNavbarClassOpenedInMobile = $preview && $defaultOpened ? ' show' : '';
+
+        $script = '';
+        if ($mode === 'auto') {
+            $script = <<<HTML
+                <script defer async>
+                    window.addEventListener('load', () => {
+                        const elemToObserve = document.querySelector('html');
+                        console.log(elemToObserve)
+                        let prevClassState = elemToObserve.classList.contains('dark');
+
+                        const observer = new MutationObserver(mutations => {
+                            mutations.forEach(mutation => {
+                                if(mutation.attributeName == "class"){
+                                    const currentClassState = mutation.target.classList.contains('dark');
+                                    
+                                    if (prevClassState !== currentClassState)    {
+                                        prevClassState = currentClassState;
+
+                                        if (currentClassState) {
+                                            console.log("dark mode enabled");
+
+                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.remove('navbar-white');
+                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.remove('bg-white');
+
+                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.add('navbar-dark');
+                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.add('bg-dark');
+                                        } else {
+                                            console.log("dark mode disabled");
+                                            
+                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.remove('navbar-dark');
+                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.remove('bg-dark');
+
+                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.add('navbar-white');
+                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.add('bg-white');
+                                        }
+                                    }
+                                }
+                            });
+                        });
+
+                        observer.observe(elemToObserve, { attributes: true });
+                    });
+                </script>
+            HTML;
+        }
+
+        return <<<HTML
+            {$script}
+
+            <nav class="navbar navbar-expand-lg navbar-{$mode} bg-{$mode}">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="{$logo}" 
+                             role="img" alt="logo" loading="lazy" 
+                             width="50" height="50">
+                    </a>
+
+                    <button class="navbar-toggler{$menuTogglerClassOpenedInMobile}" type="button" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#navbar-{$mode}-{$id}" 
+                            aria-controls="navbar-{$mode}-{$id}" 
+                            aria-expanded="false" 
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="navbar-collapse collapse{$menuNavbarClassOpenedInMobile}" 
+                         id="navbar-{$mode}-{$id}">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            {$str_links}
+                        </ul>
+
+                        <form class="d-flex">
+                            <input  class="form-control me-2" type="search" 
+                                    placeholder="Search" aria-label="Search">
+
+                            <button class="btn btn-{$btnMode}" type="submit">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        HTML;
+    }
+
+    public static function toggle_dark_mode($component) {
+        [ 'preview' => $preview, 'toggle-dark-mode' => $darkMode ] = $component;
+        $script = ($preview && $darkMode ? "enable" : "disable") . '-dark-mode.js';
+        return <<<HTML
+            <script src="/js/{$script}"></script>
         HTML;
     }
 }
