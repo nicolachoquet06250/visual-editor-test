@@ -17,3 +17,5 @@ npm run dev
 ```
 
 ## [Documentation](https://boxraiser.github.io/visual-editor/docs/intro)
+
+ - Système de design utilisé pour l'example : [Boosted by Orange](https://boosted.orange.com)
