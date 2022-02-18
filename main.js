@@ -8,6 +8,7 @@ import {
   toggle_dark_mode_name, ToggleDarkMode
 } from './components';
 import { spinner_tag, Spinner } from './ce';
+import env from './env.json';
 
 let editor = new VisualEditor();
 
@@ -21,3 +22,14 @@ editor.registerComponent(toggle_dark_mode_name, ToggleDarkMode);
 editor.defineElement();
 
 customElements.define(spinner_tag, Spinner);
+
+document.querySelector('#app').innerHTML = `
+<form action="${env.SERVER_URL}/save" method="post">
+  <visual-editor name="content"
+                 preview="${env.SERVER_URL}/preview"
+                 iconsUrl="/assets/editor/[name].png"
+                 value='[]'></visual-editor>
+</form>
+
+<bs-spinner></bs-spinner>
+`;
