@@ -34,6 +34,31 @@ document.querySelector('#app').innerHTML = `
 <bs-spinner></bs-spinner>
 `;
 
+function showSpinner() {
+  document.querySelector('bs-spinner').removeAttribute('hidden');
+}
+
+function hideSpinner() {
+  document.querySelector('bs-spinner').setAttribute('hidden', '');
+}
+
+function handleSavePage(e) {
+  e.preventDefault();
+  
+  showSpinner();
+  
+  fetch(e.target.getAttribute('action'), {
+    method: e.target.getAttribute('method'),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: document.querySelector('[name=content]').value
+  }).then(r => r.json())
+  .then(json => {
+    hideSpinner();
+  });
+}
+
 window.addEventListener('load', () => {
   document.querySelector('button[aria-label=Close]')?.remove();
   

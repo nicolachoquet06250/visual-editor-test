@@ -20,33 +20,6 @@
         border: 1px solid black!important;
       }
     </style>
-    
-    <script async defer>
-      function showSpinner() {
-        document.querySelector('bs-spinner').removeAttribute('hidden');
-      }
-
-      function hideSpinner() {
-        document.querySelector('bs-spinner').setAttribute('hidden', '');
-      }
-
-      function handleSavePage(e) {
-        e.preventDefault();
-        
-        showSpinner();
-        
-        fetch(e.target.getAttribute('action'), {
-          method: e.target.getAttribute('method'),
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: document.querySelector('[name=content]').value
-        }).then(r => r.json())
-        .then(json => {
-          hideSpinner();
-        });
-      }
-    </script>
   </head>
   <body>
     <div id="app"></div>
