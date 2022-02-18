@@ -33,3 +33,15 @@ document.querySelector('#app').innerHTML = `
 
 <bs-spinner></bs-spinner>
 `;
+
+window.addEventListener('load', () => {
+  document.querySelector('button[aria-label=Close]')?.remove();
+  
+  showSpinner();
+  fetch(`${env.SERVER_URL}/current`).then(r => r.text()).then(json => {
+    document.querySelector('visual-editor').value = json;
+    hideSpinner();
+    
+    document.querySelector('form').addEventListener('submit', handleSavePage);
+  });
+});

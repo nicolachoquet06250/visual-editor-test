@@ -46,18 +46,6 @@
           hideSpinner();
         });
       }
-
-      window.addEventListener('load', () => {
-        document.querySelector('button[aria-label=Close]')?.remove();
-        
-        showSpinner();
-        fetch('http://localhost:7000/current').then(r => r.text()).then(json => {
-          document.querySelector('visual-editor').value = json;
-          hideSpinner();
-          
-          document.querySelector('form').addEventListener('submit', handleSavePage);
-        });
-      });
     </script>
   </head>
   <body>
