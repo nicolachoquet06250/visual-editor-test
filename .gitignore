@@ -12,9 +12,11 @@ dist
 dist-ssr
 *.local
 
-back/*.json
+back/page_last_version.json
 package-lock.json
 env.json
+back/composer.lock
+back/vendor
 
 # Editor directories and files
 .vscode/*

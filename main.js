@@ -17,14 +17,14 @@ editor.registerComponent(card_row_name, CardRow);
 editor.registerComponent(accordion_name, Accordion);
 editor.registerComponent(tariff_cartridge_name, TariffCartridge);
 editor.registerComponent(search_navbar_name, SearchNavbar);
-editor.registerComponent(toggle_dark_mode_name, ToggleDarkMode);
+//editor.registerComponent(toggle_dark_mode_name, ToggleDarkMode);
 
 editor.defineElement();
 
 customElements.define(spinner_tag, Spinner);
 
 document.querySelector('#app').innerHTML = `
-<form action="${env.SERVER_URL}/save" method="post">
+<form action="${env.SERVER_URL}/save/" method="post">
   <visual-editor name="content"
                  preview="${env.SERVER_URL}/preview"
                  iconsUrl="/assets/editor/[name].png"
@@ -63,7 +63,7 @@ window.addEventListener('load', () => {
   document.querySelector('button[aria-label=Close]')?.remove();
   
   showSpinner();
-  fetch(`${env.SERVER_URL}/current`).then(r => r.text()).then(json => {
+  fetch(`${env.SERVER_URL}/current/`).then(r => r.text()).then(json => {
     document.querySelector('visual-editor').value = json;
     hideSpinner();
     
