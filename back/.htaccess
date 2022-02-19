@@ -7,4 +7,3 @@ Header set Access-Control-Allow-Credentials true
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
-RewriteRule (.*) index.php/$1
