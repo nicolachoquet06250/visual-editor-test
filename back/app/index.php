@@ -40,7 +40,7 @@
 
     $app->get('/', [VeController::class, 'index']);
     $app->post('/save/', [VeController::class, 'save']);
-    $app->get('/current/', [VeController::class, 'current']);
+    $app->get('/current\/', [VeController::class, 'current']);
     $app->post('/preview/', [VeController::class, 'preview']);
     $app->post('/preview', [VeController::class, 'preview']);
 
