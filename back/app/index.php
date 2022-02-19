@@ -1,12 +1,10 @@
 <?php
-    ini_set('display_errors', 1);
-    error_reporting(E_ALL);
-
     use Psr\Http\Message\ResponseInterface as Response;
     use Psr\Http\Message\ServerRequestInterface as Request;
     use Slim\Exception\HttpNotFoundException;
     use Slim\Factory\AppFactory;
-    use ve\controllers\VeController;
+use ve\controllers\LoginController;
+use ve\controllers\VeController;
 
     require __DIR__ . '/../vendor/autoload.php';
 
@@ -65,6 +63,7 @@
     $app->get('/current/', [VeController::class, 'current']);
     $app->post('/preview/', [VeController::class, 'preview']);
     $app->post('/preview', [VeController::class, 'preview']);
+    $app->post('/login/', [LoginController::class, 'check_password']);
 
     if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
         /**

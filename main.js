@@ -32,15 +32,115 @@ editor.defineElement();
 customElements.define(spinner_tag, Spinner);
 
 document.querySelector('#app').innerHTML = `
-<form action="${env.SERVER_URL}/save/" method="post">
-  <visual-editor name="content"
-                 preview="${env.SERVER_URL}/preview"
-                 iconsUrl="/assets/editor/[name].png"
-                 value='[]'></visual-editor>
-</form>
+<style>
+    #app {
+        width: 100vw;
+        height: 100vh;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        min-height: 200px;
+        width: 250px;
+        background-color: rgb(231,228,228);
+        border-radius: 10px;
+    }
+    
+    form > * {
+        margin: 15px;
+    }
+    
+    input[type=password] {
+        width: calc(100% - 30px);
+    }
+    
+    input[type=submit] {
+        outline: none;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        gap: 0.5em;
+        border: none;
+        color: #fff;
+        height: 48px;
+        padding: 0 1em;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        background-color: rgb(28,36,71);
+    }
 
-<bs-spinner></bs-spinner>
+    #error {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+
+<form id="login-form" action="${env.SERVER_URL}/login/" method="post">
+    <h1>
+        Connexion
+    </h1>
+
+    <input class="form-control" id="password" type="password" placeholder="Password" />
+    
+    <input type="submit" value="Se connected" />
+    
+    <span id="error"></span>
+</form>
 `;
+
+document.querySelector('#login-form').addEventListener('submit', e => {
+  e.preventDefault();
+
+  fetch(e.target.getAttribute('action'), {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      password: document.querySelector('#password').value
+    })
+  }).then(r => r.json())
+      .then(json => {
+        if (json.ok) {
+          loadVisualEditor();
+        } else {
+          document.querySelector('#error').innerHTML = 'Le mot de passe est incorrect';
+        }
+      })
+});
+
+function loadVisualEditor() {
+  document.querySelector('#app').innerHTML = `
+    <form action="${env.SERVER_URL}/save/" method="post">
+      <visual-editor name="content"
+                     preview="${env.SERVER_URL}/preview"
+                     iconsUrl="/assets/editor/[name].png"
+                     value='[]'></visual-editor>
+    </form>
+    
+    <bs-spinner></bs-spinner>
+  `;
+
+  document.querySelector('button[aria-label=Close]')?.remove();
+
+  showSpinner();
+  fetch(`${env.SERVER_URL}/current/`).then(r => r.text()).then(json => {
+    document.querySelector('visual-editor').value = json;
+    hideSpinner();
+
+    document.querySelector('form').addEventListener('submit', handleSavePage);
+  });
+}
 
 function showSpinner() {
   document.querySelector('bs-spinner').removeAttribute('hidden');
@@ -67,7 +167,7 @@ function handleSavePage(e) {
   });
 }
 
-window.addEventListener('load', () => {
+/*window.addEventListener('load', () => {
   document.querySelector('button[aria-label=Close]')?.remove();
   
   showSpinner();
@@ -77,4 +177,4 @@ window.addEventListener('load', () => {
     
     document.querySelector('form').addEventListener('submit', handleSavePage);
   });
-});
+});*/
