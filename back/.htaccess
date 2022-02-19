@@ -1,10 +1,8 @@
-RewriteEngine On
-
 SetEnvIf Origin "http(s)?://(www\.)?(ve.boosted.orange.nicolaschoquet.fr)$" AccessControlAllowOrigin=$0$1
 Header set Access-Control-Allow-Origin %{AccessControlAllowOrigin}e env=AccessControlAllowOrigin
 Header set Access-Control-Allow-Credentials true
 
+RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^$ app/index.php [QSA,L]
-RewriteRule (.*) app/index.php$1 [QSA,L]
+RewriteRule (.*) app/index.php [QSA,L]
