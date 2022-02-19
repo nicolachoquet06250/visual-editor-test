@@ -60,6 +60,7 @@
     
 
     $app->get('/', [VeController::class, 'index']);
+    $app->get('/styles', [VeController::class, 'styles']);
     $app->post('/save/', [VeController::class, 'save']);
     $app->get('/current/', [VeController::class, 'current']);
     $app->post('/preview/', [VeController::class, 'preview']);

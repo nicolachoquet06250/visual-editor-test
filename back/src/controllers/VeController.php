@@ -4,20 +4,39 @@ namespace ve\controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use ve\drawers\GlobalStyle;
+use ve\drawers\VoidDrawer;
 
 class VeController {
+    public static function  styles(Request $request, Response $response): Response {
+        $components = file_exists(__DIR__ . '/../../page_last_version.json')
+            ? json_decode(file_get_contents(__DIR__ . '/../../page_last_version.json'), true) : [];
+
+        $styles = array_reduce($components, function($r, $component) {
+            $c = new ('\\ve\\drawers\\' . (
+                    empty($component) ?
+                        'VoidDrawer' : implode('', array_map(
+                        fn(string $c) => ucfirst($c),
+                        explode('_', str_replace('-', '_', $component['_name']))
+                    ))
+            ))($component);
+
+            return $r . (in_array('style', get_class_methods($c::class)) ? $c->style() : '');
+        }, '');
+
+        $response->getBody()->write($styles);
+        return $response->withHeader('Content-Type', 'text/css');
+    }
+
     // get
     public static function index(Request $request, Response $response, array $args): Response {
-        $global_style = new GlobalStyle();
-
-        $components = json_decode(file_get_contents(__DIR__ . '/../../page_last_version.json'), true);
+        $components = file_exists(__DIR__ . '/../../page_last_version.json')
+            ? json_decode(file_get_contents(__DIR__ . '/../../page_last_version.json'), true) : [];
 
         $body = array_reduce($components, function($r, $component) {
             ['_name' => $name] = $component;
 
             if (empty($component)) {
-                return $r . (new \ve\drawers\VoidDrawer())->draw();
+                return $r . (new VoidDrawer())->draw();
             } else if (
                 strpos($name, 'nav-bar') || 
                 strpos($name, 'navbar') || 
@@ -43,7 +62,7 @@ class VeController {
             )($component);
 
             return $r . <<<HTML
-                <div id="ve-components" class="container">
+                <div class="container">
                     {$c->draw()}
                 </div>
             HTML;
@@ -62,8 +81,8 @@ class VeController {
                     <link href="https://cdn.jsdelivr.net/npm/boosted@5.1.3/dist/css/orange-helvetica.min.css" rel="stylesheet">
                         
                     <link href="https://cdn.jsdelivr.net/npm/boosted@5.1.3/dist/css/boosted.min.css" rel="stylesheet">
-
-                    {$global_style->draw()}
+                    
+                    <link href="/styles" rel="stylesheet" />
                 </head>
                 <body>
                     {$body}
@@ -91,8 +110,6 @@ class VeController {
     public static function preview(Request $request, Response $response, array $args): Response {
         $component = $request->getParsedBody();
 
-        $global_style = new GlobalStyle();
-
         $template = empty($component) ? <<<HTML
             <!DOCTYPE html>
             <html lang="en">
@@ -112,8 +129,6 @@ class VeController {
                             background-color: #1771E6;
                         }
                     </style>
-
-                    {$global_style->draw()}
                 </head>
 
                 <body>
@@ -129,6 +144,10 @@ class VeController {
                 ))
             )
         )($component);
+
+        $style = in_array('style', get_class_methods($_component::class)) ? '<style>' . $_component->style() . '</style>' : '';
+
+        $template .= $style;
 
         if (
             !empty($component) && !(

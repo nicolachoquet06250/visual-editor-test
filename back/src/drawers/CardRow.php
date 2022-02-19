@@ -5,6 +5,21 @@ namespace ve\drawers;
 use ve\helpers\Drawer;
 
 class CardRow extends Drawer {
+    private static bool $rendered = false;
+
+    public function style(): string {
+        if(!static::$rendered) {
+            static::$rendered = true;
+            return <<<CSS
+                .row {
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                }
+            CSS;
+        }
+        return '';
+    }
+
     public function draw(): string {
         $cards = "<div class=\"row\">";
         foreach ($this->component['cards'] as $i => $card) {

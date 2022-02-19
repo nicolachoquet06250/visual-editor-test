@@ -5,7 +5,11 @@ import {
   accordion_name, Accordion,
   tariff_cartridge_name, TariffCartridge,
   search_navbar_name, SearchNavbar,
-  toggle_dark_mode_name, ToggleDarkMode
+  search_navbar_with_title_name, SearchNavBarWithTitle,
+  image_banner_name, ImageBanner,
+  simple_title_name, SimpleTitle,
+  simple_paragraph_name, SimpleParagraph,
+  form_name, Form
 } from './components';
 import { spinner_tag, Spinner } from './ce';
 import env from './env.json';
@@ -17,7 +21,11 @@ editor.registerComponent(card_row_name, CardRow);
 editor.registerComponent(accordion_name, Accordion);
 editor.registerComponent(tariff_cartridge_name, TariffCartridge);
 editor.registerComponent(search_navbar_name, SearchNavbar);
-//editor.registerComponent(toggle_dark_mode_name, ToggleDarkMode);
+editor.registerComponent(search_navbar_with_title_name, SearchNavBarWithTitle);
+editor.registerComponent(image_banner_name, ImageBanner);
+editor.registerComponent(simple_title_name, SimpleTitle);
+editor.registerComponent(simple_paragraph_name, SimpleParagraph);
+editor.registerComponent(form_name, Form);
 
 editor.defineElement();
 
