@@ -27,7 +27,9 @@
         $response = $handler->handle($request);
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $domainName = $_SERVER['HTTP_HOST'];
-        $host = getallheaders()['Origin'] ?? $protocol . $domainName;
+        $host = getallheaders()['Origin'] ?? ($protocol . $domainName);
+
+        var_dump($host);
         
         return $response
                 ->withHeader('Access-Control-Allow-Origin', $host)
