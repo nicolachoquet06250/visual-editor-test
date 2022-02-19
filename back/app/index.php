@@ -28,8 +28,6 @@
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $domainName = $_SERVER['HTTP_HOST'];
         $host = getallheaders()['Origin'] ?? ($protocol . $domainName);
-
-        var_dump($host);
         
         return $response
                 ->withHeader('Access-Control-Allow-Origin', $host)
@@ -39,9 +37,9 @@
     
 
     $app->get('/', [VeController::class, 'index']);
-    $app->post('/save/ ', [VeController::class, 'save']);
-    $app->get('/current', [VeController::class, 'current']);
-    $app->post('/preview/ ', [VeController::class, 'preview']);
+    $app->post('/save/', [VeController::class, 'save']);
+    $app->get('/current/', [VeController::class, 'current']);
+    $app->post('/preview/', [VeController::class, 'preview']);
     $app->post('/preview', [VeController::class, 'preview']);
 
     /**
