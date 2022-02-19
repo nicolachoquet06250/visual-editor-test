@@ -117,12 +117,13 @@ class SearchNavBar extends Drawer {
 
             $currentPageAttribute = $this->currentPageAttribute($label);
             $currentPageClass = $this->currentPageClass($label);
+            $target = strtolower($label) === 'edit' ? 'target="_blank"' : '';
 
             $str_links .= "
             <li class=\"nav-item\">
                 <a  class=\"nav-link{$currentPageClass}\" 
                     {$currentPageAttribute}
-                    href=\"{$url}\">{$label}</a>
+                    href=\"{$url}\" {$target}>{$label}</a>
             </li>
             ";
         }
