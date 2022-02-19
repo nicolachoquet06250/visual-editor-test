@@ -7,7 +7,6 @@
     use Slim\Exception\HttpNotFoundException;
     use Slim\Factory\AppFactory;
     use ve\controllers\VeController;
-    use ve\helpers\HttpCors;
 
     require __DIR__ . '/../vendor/autoload.php';
 
@@ -20,9 +19,21 @@
 
     $app->addErrorMiddleware(true, true, true);
 
-    $app->options(HttpCors::$optionRoute, [HttpCors::class, 'option']);
+    $app->options('/{routes:.+}', function ($request, $response, $args) {
+        return $response;
+    });
     
-    $app->add([HttpCors::class, 'middleware']);
+    $app->add(function ($request, $handler) {
+        $response = $handler->handle($request);
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $domainName = $_SERVER['HTTP_HOST'];
+        $host = getallheaders()['Origin'] ?? $protocol . $domainName;
+        
+        return $response
+                ->withHeader('Access-Control-Allow-Origin', $host)
+                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    });
     
 
     $app->get('/', [VeController::class, 'index']);
@@ -36,9 +47,11 @@
      * NOTE: make sure this route is defined last
      */
     $app->map(
-        HttpCors::$mapHttpMethods, 
-        HttpCors::$optionRoute, 
-        [HttpCors::class, 'map']
+        ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], 
+        '/{routes:.+}', 
+        function ($request, $response) {
+            throw new HttpNotFoundException($request);
+        }
     );
 
     $app->run();
