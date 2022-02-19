@@ -5,6 +5,25 @@ namespace ve\drawers;
 use ve\helpers\Drawer;
 
 class SearchNavBar extends Drawer {
+    private string $logo;
+    private array $links;
+    private string $color;
+    private bool $defaultOpened;
+
+    public function __construct(
+        protected array $component
+    ) {
+        parent::__construct($component);
+
+        [
+            'logo' => $this->logo,
+            'links' => $this->links,
+            'mode-color' => $this->color,
+            'opened' => $this->defaultOpened
+        ] = $component;
+        $this->preview = $component['preview'] ?? false;
+    }
+
     private function currentPageAttribute($label) {
         return ($_GET['page'] ?? 'Home') === $label ? 'aria-current="page"' : '';
     }
@@ -13,8 +32,8 @@ class SearchNavBar extends Drawer {
         return ($_GET['page'] ?? 'Home') === $label ? ' active' : '';
     }
 
-    private function getTheme(string $color): array {
-        switch ($color) {
+    private function getTheme(): array {
+        switch ($this->color) {
             case '#CCCCCC':
                 $btnMode = 'success';
                 $mode = 'light';
@@ -88,17 +107,9 @@ class SearchNavBar extends Drawer {
     }
 
     public function draw(): string {
-        [
-            'logo' => $logo,
-            'links' => $links,
-            'mode-color' => $color,
-            'opened' => $defaultOpened
-        ] = $this->component;
-        $preview = $this->component['preview'] ?? false;
-
         $str_links = '';
 
-        foreach ($links as $link) {
+        foreach ($this->links as $link) {
             [
                 'label' => $label,
                 'url' => $url
@@ -119,12 +130,12 @@ class SearchNavBar extends Drawer {
         [
             'btnMode' => $btnMode,
             'mode' => $mode
-        ] = $this->getTheme($color);
+        ] = $this->getTheme();
 
         $id = uniqid();
 
-        $menuTogglerClassOpenedInMobile = $preview && $defaultOpened ? '' : ' collapsed';
-        $menuNavbarClassOpenedInMobile = $preview && $defaultOpened ? ' show' : '';
+        $menuTogglerClassOpenedInMobile = $this->preview && $this->defaultOpened ? '' : ' collapsed';
+        $menuNavbarClassOpenedInMobile = $this->preview && $this->defaultOpened ? ' show' : '';
 
         return <<<HTML
             {$this->getScript($mode)}
@@ -132,7 +143,7 @@ class SearchNavBar extends Drawer {
             <nav class="navbar navbar-expand-lg navbar-{$mode} bg-{$mode}">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="{$logo}" 
+                        <img src="{$this->logo}" 
                              role="img" alt="logo" loading="lazy" 
                              width="50" height="50">
                     </a>
