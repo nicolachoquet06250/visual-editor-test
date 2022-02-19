@@ -25,11 +25,11 @@ class SearchNavBar extends Drawer {
     }
 
     private function currentPageAttribute($label) {
-        return ($_GET['page'] ?? 'Home') === $label ? 'aria-current="page"' : '';
+        return $this->links[0]['label'] === $label ? 'aria-current="page"' : '';
     }
 
     private function currentPageClass($label) {
-        return ($_GET['page'] ?? 'Home') === $label ? ' active' : '';
+        return $this->links[0]['label'] === $label ? ' active' : '';
     }
 
     private function getTheme(): array {
@@ -136,7 +136,7 @@ class SearchNavBar extends Drawer {
 
         $menuTogglerClassOpenedInMobile = $this->preview && $this->defaultOpened ? '' : ' collapsed';
         $menuNavbarClassOpenedInMobile = $this->preview && $this->defaultOpened ? ' show' : '';
-
+        
         return <<<HTML
             {$this->getScript($mode)}
 

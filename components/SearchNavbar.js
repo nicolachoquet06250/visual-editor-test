@@ -13,7 +13,7 @@ export const component = {
                 default: true
             }),
             Color('mode-color', {
-                label: 'Cartridge color',
+                label: 'Navbar Theme',
                 help: 'Choose cartridge color',
                 colors: ['black', 'white', '#CCCCCC'],
                 default: 'white'
