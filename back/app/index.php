@@ -19,6 +19,9 @@
 
     $app->addErrorMiddleware(true, true, true);
 
+    /**
+     * START ENABLE CORS
+     */
     // Access-Control headers are received during OPTIONS requests
     if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
@@ -33,40 +36,14 @@
         //...return correct headers...
         $app->response->setStatus(200);
     });
-
-    /*$app->options('/{routes:.+}', function ($request, $response, $args) {
-        return $response;
-    });
-    
-    $app->add(function ($request, $handler) {
-        $response = $handler->handle($request);
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-        $domainName = $_SERVER['HTTP_HOST'];
-        $host = getallheaders()['Origin'] ?? ($protocol . $domainName);
-        
-        return $response
-                ->withHeader('Access-Control-Allow-Origin', $host)
-                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    });*/
-    
+    /**
+     * STOP ENABLE CORS
+     */
 
     $app->get('/', [VeController::class, 'index']);
     $app->post('/save/', [VeController::class, 'save']);
     $app->get('/current/', [VeController::class, 'current']);
     $app->post('/preview/', [VeController::class, 'preview']);
     $app->post('/preview', [VeController::class, 'preview']);
-
-    /**
-     * Catch-all route to serve a 404 Not Found page if none of the routes match
-     * NOTE: make sure this route is defined last
-     */
-    /*$app->map(
-        ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], 
-        '/{routes:.+}', 
-        function ($request, $response) {
-            throw new HttpNotFoundException($request);
-        }
-    );*/
 
     $app->run();
