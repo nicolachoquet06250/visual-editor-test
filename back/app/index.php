@@ -19,7 +19,22 @@
 
     $app->addErrorMiddleware(true, true, true);
 
-    $app->options('/{routes:.+}', function ($request, $response, $args) {
+    // Access-Control headers are received during OPTIONS requests
+    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+
+        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+            header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");         
+
+        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+            header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+    }
+    // instead of mapping:
+    $app->options('/(:x+)', function() use ($app) {
+        //...return correct headers...
+        $app->response->setStatus(200);
+    });
+
+    /*$app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;
     });
     
@@ -33,7 +48,7 @@
                 ->withHeader('Access-Control-Allow-Origin', $host)
                 ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
                 ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    });
+    });*/
     
 
     $app->get('/', [VeController::class, 'index']);
@@ -46,12 +61,12 @@
      * Catch-all route to serve a 404 Not Found page if none of the routes match
      * NOTE: make sure this route is defined last
      */
-    $app->map(
+    /*$app->map(
         ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], 
         '/{routes:.+}', 
         function ($request, $response) {
             throw new HttpNotFoundException($request);
         }
-    );
+    );*/
 
     $app->run();
