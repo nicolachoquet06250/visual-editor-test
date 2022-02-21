@@ -9,7 +9,10 @@ import {
   image_banner_name, ImageBanner,
   simple_title_name, SimpleTitle,
   simple_paragraph_name, SimpleParagraph,
-  form_name, Form
+  form_name, Form,
+  alert_name, Alert,
+  button_group_name, ButtonGroup,
+  slider_name, Slider
 } from './components';
 import { spinner_tag, Spinner } from './ce';
 import env from './env.json';
@@ -26,6 +29,9 @@ editor.registerComponent(image_banner_name, ImageBanner);
 editor.registerComponent(simple_title_name, SimpleTitle);
 editor.registerComponent(simple_paragraph_name, SimpleParagraph);
 editor.registerComponent(form_name, Form);
+editor.registerComponent(alert_name, Alert);
+editor.registerComponent(button_group_name, ButtonGroup);
+editor.registerComponent(slider_name, Slider);
 
 editor.defineElement();
 

@@ -8,3 +8,6 @@ export { name as image_banner_name, component as ImageBanner } from './ImageBann
 export { name as simple_title_name, component as SimpleTitle } from './SimpleTitle';
 export { name as simple_paragraph_name, component as SimpleParagraph } from './SimpleParagraph';
 export { name as form_name, component as Form } from './Form';
+export { name as alert_name, component as Alert } from './Alert';
+export { name as button_group_name, component as ButtonGroup } from './ButtonGroup';
+export { name as slider_name, component as Slider } from './Slider';

@@ -1,4 +1,4 @@
-import {Alignment, Checkbox, Number, Repeater, Row, Select, Tabs, Text} from "@boxraiser/visual-editor";
+import {Checkbox, Number, Repeater, Row, Select, Tabs, Text} from "@boxraiser/visual-editor";
 
 export const name = 'form';
 

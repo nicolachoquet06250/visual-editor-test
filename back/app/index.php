@@ -1,10 +1,11 @@
 <?php
-    use Psr\Http\Message\ResponseInterface as Response;
-    use Psr\Http\Message\ServerRequestInterface as Request;
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+    
     use Slim\Exception\HttpNotFoundException;
     use Slim\Factory\AppFactory;
-use ve\controllers\LoginController;
-use ve\controllers\VeController;
+    use ve\controllers\LoginController;
+    use ve\controllers\VeController;
 
     require __DIR__ . '/../vendor/autoload.php';
 

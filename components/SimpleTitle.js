@@ -9,7 +9,7 @@ const options = Array.from(Array(7).keys()).map(i => ({
 
 export const component = {
     title: 'Simple title',
-    category: 'Header',
+    category: 'Headers',
     fields: [
         Row([
             Text('title-label', {
