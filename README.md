@@ -17,7 +17,8 @@ npm install
 ##### Définir un fichier **env.json** avec :
 ```json
 {
-    "SERVER_URL": "<url de du serveur du site + api>"
+    "SERVER_URL": "<url de du serveur du site + api>",
+    "PASSWORD": "<your sha1 encoded password>"
 }
 ```
 
