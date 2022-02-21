@@ -12,7 +12,8 @@ import {
   form_name, Form,
   alert_name, Alert,
   button_group_name, ButtonGroup,
-  slider_name, Slider
+  slider_name, Slider,
+  simple_collapse_name, SimpleCollapse
 } from './components';
 import { spinner_tag, Spinner } from './ce';
 import env from './env.json';
@@ -32,6 +33,7 @@ editor.registerComponent(form_name, Form);
 editor.registerComponent(alert_name, Alert);
 editor.registerComponent(button_group_name, ButtonGroup);
 editor.registerComponent(slider_name, Slider);
+editor.registerComponent(simple_collapse_name, SimpleCollapse);
 
 editor.defineElement();
 
@@ -172,15 +174,3 @@ function handleSavePage(e) {
     hideSpinner();
   });
 }
-
-/*window.addEventListener('load', () => {
-  document.querySelector('button[aria-label=Close]')?.remove();
-  
-  showSpinner();
-  fetch(`${env.SERVER_URL}/current/`).then(r => r.text()).then(json => {
-    document.querySelector('visual-editor').value = json;
-    hideSpinner();
-    
-    document.querySelector('form').addEventListener('submit', handleSavePage);
-  });
-});*/
