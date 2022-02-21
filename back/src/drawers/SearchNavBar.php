@@ -9,6 +9,7 @@ class SearchNavBar extends Drawer {
     private array $links;
     private string $color;
     private bool $defaultOpened;
+    private mixed $id;
 
     public function __construct(
         protected array $component
@@ -22,14 +23,23 @@ class SearchNavBar extends Drawer {
             'opened' => $this->defaultOpened
         ] = $component;
         $this->preview = $component['preview'] ?? false;
+        $this->id = uniqid();
     }
 
     private function currentPageAttribute($label) {
-        return $this->links[0]['label'] === $label ? 'aria-current="page"' : '';
+        if (empty($_GET['page'])) {
+            return $this->links[0]['label'] === $label ? ' aria-current="page"' : '';
+        } else {
+            return $_GET['page'] === strtolower(str_replace(' ', '_', $label)) ? ' aria-current="page"' : '';
+        }
     }
 
     private function currentPageClass($label) {
-        return $this->links[0]['label'] === $label ? ' active' : '';
+        if (empty($_GET['page'])) {
+            return $this->links[0]['label'] === $label ? ' active' : '';
+        } else {
+            return $_GET['page'] === strtolower(str_replace(' ', '_', $label)) ? ' active' : '';
+        }
     }
 
     private function getTheme(): array {
@@ -78,19 +88,19 @@ class SearchNavBar extends Drawer {
                                         if (currentClassState) {
                                             console.log("dark mode enabled");
 
-                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.remove('navbar-white');
-                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.remove('bg-white');
+                                            document.querySelector('#navbar-{$mode}-{$this->id}').parentElement.parentElement.classList.remove('navbar-white');
+                                            document.querySelector('#navbar-{$mode}-{$this->id}').parentElement.parentElement.classList.remove('bg-white');
 
-                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.add('navbar-dark');
-                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.add('bg-dark');
+                                            document.querySelector('#navbar-{$mode}-{$this->id}').parentElement.parentElement.classList.add('navbar-dark');
+                                            document.querySelector('#navbar-{$mode}-{$this->id}').parentElement.parentElement.classList.add('bg-dark');
                                         } else {
                                             console.log("dark mode disabled");
                                             
-                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.remove('navbar-dark');
-                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.remove('bg-dark');
+                                            document.querySelector('#navbar-{$mode}-{$this->id}').parentElement.parentElement.classList.remove('navbar-dark');
+                                            document.querySelector('#navbar-{$mode}-{$this->id}').parentElement.parentElement.classList.remove('bg-dark');
 
-                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.add('navbar-white');
-                                            document.querySelector('#navbar-{$mode}-{$id}').parentElement.parentElement.classList.add('bg-white');
+                                            document.querySelector('#navbar-{$mode}-{$this->id}').parentElement.parentElement.classList.add('navbar-white');
+                                            document.querySelector('#navbar-{$mode}-{$this->id}').parentElement.parentElement.classList.add('bg-white');
                                         }
                                     }
                                 }
@@ -117,7 +127,8 @@ class SearchNavBar extends Drawer {
 
             $currentPageAttribute = $this->currentPageAttribute($label);
             $currentPageClass = $this->currentPageClass($label);
-            $target = strtolower($label) === 'edit' ? 'target="_blank"' : '';
+            $target = strtolower($label) === 'edit' || strtolower($label) === 'edition' || strtolower($label) === 'édition' 
+                ? 'target="_blank"' : '';
 
             $str_links .= "
             <li class=\"nav-item\">
