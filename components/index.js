@@ -11,4 +11,5 @@ export { name as form_name, component as Form } from './Form';
 export { name as alert_name, component as Alert } from './Alert';
 export { name as button_group_name, component as ButtonGroup } from './ButtonGroup';
 export { name as slider_name, component as Slider } from './Slider';
-export { name as simple_collapse_name, component as SimpleCollapse } from './SimpleCollapse'; 
+export { name as simple_collapse_name, component as SimpleCollapse } from './SimpleCollapse';
+export { name as dropdown_name, component as Dropdown } from './Dropdown'; 
