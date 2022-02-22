@@ -4,7 +4,7 @@ export const name = 'list-group';
 
 export const component = {
     title: 'List group',
-    category: 'Content',
+    category: 'List',
     fields: [
         Row([
             Checkbox('flush', {
