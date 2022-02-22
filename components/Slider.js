@@ -1,4 +1,5 @@
-import { Checkbox, ImageUrl, Number, Repeater, Row, Tabs, Text } from "@boxraiser/visual-editor";
+import { Checkbox, Number, Repeater, Row, Tabs, Text, ImageUrl } from "@boxraiser/visual-editor";
+import { buildImage } from "../ve-components/Image";
 
 export const name = 'slider';
 
@@ -55,17 +56,7 @@ export const component = {
                                 },
                                 {
                                     label: 'Image',
-                                    fields: [
-                                        Row([
-                                            ImageUrl('image', {
-                                                label: 'Image'
-                                            }),
-                                            Text('alternative-text', {
-                                                label: 'Alternative text',
-                                                multiline: false
-                                            })
-                                        ])
-                                    ]
+                                    fields: buildImage()
                                 }
                             )
                         ]

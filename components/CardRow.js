@@ -1,4 +1,5 @@
-import { HTMLText, Repeater, Text, Row } from '@boxraiser/visual-editor';
+import { Repeater } from '@boxraiser/visual-editor';
+import { buildCard } from '../ve-components/Card';
 
 export const name = 'card-row';
 
@@ -9,22 +10,7 @@ export const component = {
         Repeater('cards', {
             title: 'Cards',
             addLabel: 'Add Card',
-            fields: [
-                Row([
-                    Text('title', { label: 'Title', default: 'Title' }),
-                    HTMLText('content', { label: 'Content' })
-                ]),
-                Repeater('card-buttons', {
-                    title: 'Card Buttons',
-                    addLabel: 'Add Card Button',
-                    fields: [
-                        Row([
-                            Text('label', { label: 'Label', default: 'Link href' }),
-                            Text('url', { label: 'Link', default: '#' })
-                        ])
-                    ]
-                })
-            ]
+            fields: buildCard()
         })
     ]
 };
