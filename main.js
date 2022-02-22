@@ -14,7 +14,8 @@ import {
   button_group_name, ButtonGroup,
   slider_name, Slider,
   simple_collapse_name, SimpleCollapse,
-  dropdown_name, Dropdown
+  dropdown_name, Dropdown,
+  list_group_name, ListGroup
 } from './components';
 import { spinner_tag, Spinner } from './ce';
 import env from './env.json';
@@ -36,6 +37,7 @@ editor.registerComponent(button_group_name, ButtonGroup);
 editor.registerComponent(slider_name, Slider);
 editor.registerComponent(simple_collapse_name, SimpleCollapse);
 editor.registerComponent(dropdown_name, Dropdown);
+editor.registerComponent(list_group_name, ListGroup);
 
 editor.defineElement();
 

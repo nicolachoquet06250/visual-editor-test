@@ -13,3 +13,4 @@ export { name as button_group_name, component as ButtonGroup } from './ButtonGro
 export { name as slider_name, component as Slider } from './Slider';
 export { name as simple_collapse_name, component as SimpleCollapse } from './SimpleCollapse';
 export { name as dropdown_name, component as Dropdown } from './Dropdown'; 
+export { name as list_group_name, component as ListGroup } from './ListGroup';
