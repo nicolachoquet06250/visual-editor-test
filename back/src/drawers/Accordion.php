@@ -5,14 +5,14 @@ namespace ve\drawers;
 use ve\helpers\Drawer;
 
 class Accordion extends Drawer {
-    public array $items;
+    public array $accordionItems;
     public string $_name;
     public string $content;
 
     public function draw(): string {
         $acc = "<div class=\"accordion\" id=\"{$this->_name}-{$this->id}\">";
         
-        foreach ($this->items as $i => $item) {
+        foreach ($this->accordionItems as $i => $item) {
             [
                 'title' => $title,
                 'content' => $content,
