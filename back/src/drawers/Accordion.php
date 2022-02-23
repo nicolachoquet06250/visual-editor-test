@@ -5,17 +5,13 @@ namespace ve\drawers;
 use ve\helpers\Drawer;
 
 class Accordion extends Drawer {
-    public function draw(): string {
-        [
-            '_name' => $name,
-            'accordion-mode' => $mode,
-            'accordion-items' => $items
-        ] = $this->component;
-        $id = uniqid();
+    public string $_name;
+    public string $content;
 
-        $acc = "<div class=\"accordion\" id=\"{$name}-{$id}\">";
+    public function draw(): string {
+        $acc = "<div class=\"accordion\" id=\"{$this->_name}-{$this->id}\">";
         
-        foreach ($items as $i => $item) {
+        foreach ($this->items as $i => $item) {
             [
                 'title' => $title,
                 'content' => $content,
@@ -25,23 +21,23 @@ class Accordion extends Drawer {
             $headerClass = $opened ? '' : ' collapsed';
             $bodyClass = $opened ? ' show' : '';
             $expended = $opened ? 'true' : 'false';
-            $parent = $mode === 'simple' ? "data-bs-parent=\"#{$name}-{$id}\"" : '';
+            $parent = $this->mode === 'simple' ? "data-bs-parent=\"#{$this->_name}-{$this->id}\"" : '';
 
             $acc .= <<<HTML
                 <div class="accordion-item">
-                    <h2 id="heading-{$name}-{$id}-{$i}" class="accordion-header">
+                    <h2 id="heading-{$this->_name}-{$this->id}-{$i}" class="accordion-header">
                         <button class="accordion-button{$headerClass}" type="button" 
                                 data-bs-toggle="collapse" 
-                                data-bs-target="#collapse-{$name}-{$id}-{$i}" 
+                                data-bs-target="#collapse-{$this->_name}-{$this->id}-{$i}" 
                                 aria-expanded="{$expended}" 
-                                aria-controls="collapse-{$name}-{$id}-{$i}">
+                                aria-controls="collapse-{$this->_name}-{$this->id}-{$i}">
                             {$title}
                         </button>
                     </h2>
                     
-                    <div id="collapse-{$name}-{$id}-{$i}" 
+                    <div id="collapse-{$this->_name}-{$this->id}-{$i}" 
                          class="accordion-collapse collapse{$bodyClass}" 
-                         aria-labelledby="heading-{$name}-{$id}-{$i}" 
+                         aria-labelledby="heading-{$this->_name}-{$this->id}-{$i}" 
                          {$parent}>
                         <div class="accordion-body">
                             {$content}

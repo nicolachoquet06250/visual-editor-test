@@ -125,11 +125,12 @@ class ListGroup extends Drawer {
     public function draw(): string {
         $flush = $this->flush ? ' list-group-flush' : '';
         $numbered = $this->numbered ? ' list-group-numbered' : '';
+        $listTag = $this->numbered ? 'ol' : 'ul';
 
         return <<<HTML
-            <ul class="list-group{$flush}{$numbered} mb-2">
+            <{$listTag} class="list-group{$flush}{$numbered} mb-2">
                 {$this->getItems()}
-            </ul>
+            </{$listTag}>
         HTML;
     }
 }

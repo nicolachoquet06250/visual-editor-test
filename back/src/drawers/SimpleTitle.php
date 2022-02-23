@@ -7,29 +7,17 @@ use ve\helpers\Helper;
 
 class SimpleTitle extends Drawer
 {
-    private string $title;
-    private string $level;
-
-    public function __construct(
-        protected array $component
-    )
-    {
-        parent::__construct($component);
-
-        [
-            'title-label' => $this->title,
-            'title-level' => $this->level
-        ] = $component;
-    }
+    public string $titleLabel;
+    public string $titleLevel;
 
     public function draw(): string
     {
         return <<<HTML
             <div class="row">
                 <div class="col-12">
-                    <{$this->level}>
-                        {$this->title}
-                    </{$this->level}>
+                    <{$this->titleLevel}>
+                        {$this->titleLabel}
+                    </{$this->titleLevel}>
                 </div>
             </div>
         HTML;

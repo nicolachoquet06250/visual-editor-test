@@ -5,7 +5,8 @@ namespace ve\drawers;
 use ve\helpers\Drawer;
 
 class CardRow extends Drawer {
-    private static bool $rendered = false;
+    public static bool $rendered = false;
+    public array $cards;
 
     public function style(): string {
         if(!static::$rendered) {
@@ -22,12 +23,13 @@ class CardRow extends Drawer {
 
     public function draw(): string {
         $cards = "<div class=\"row\">";
-        foreach ($this->component['cards'] as $i => $card) {
+        foreach ($this->cards as $i => $card) {
             [
                 'title' => $title,
                 'content' => $content,
                 'card-buttons' => $buttons
             ] = $card;
+
             $content = '<span>' . implode('</span><br /><span>', explode("\n", $content)) . '</span>';
             
             $_buttons = '';

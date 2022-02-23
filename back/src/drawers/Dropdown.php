@@ -5,39 +5,19 @@ namespace ve\drawers;
 use ve\helpers\Drawer;
 
 class Dropdown extends Drawer {
-    private bool $preview;
-    private string $id;
+    public bool $preview = false;
+    public string $id;
 
-    private bool $splitted;
-    private bool $opened;
-    private bool $isDark;
+    public bool $splitted;
+    public bool $opened;
+    public bool $dark;
     
-    private string $buttonType;
-    private string $buttonSize;
-    private string $buttonLabel;
-    private string $dropdownSide = 'dropdown';
+    public string $buttonType;
+    public string $buttonSize;
+    public string $buttonLabel;
+    public string $side = 'dropdown';
 
-    private array $items;
-
-    public function __construct(
-        protected array $component
-    ) {
-        parent::__construct($component);
-
-        [
-            'splitted' => $this->splitted,
-            'opened' => $this->opened,
-            'button-type' => $this->buttonType,
-            'button-size' => $this->buttonSize,
-            'button-label' => $this->buttonLabel,
-            'dark' => $this->isDark,
-            'side' => $this->dropdownSide,
-            'items' => $this->items
-        ] = $component;
-        $this->preview = $component['preview'] ?? false;
-
-        $this->id = 'dropdown-' . uniqid();
-    }
+    public array $items;
 
     private function getButtonSizeClass(): string {
         switch($this->buttonSize) {
@@ -62,7 +42,7 @@ class Dropdown extends Drawer {
 
         return <<<HTML
             <button class="btn btn-{$this->buttonType}{$this->getButtonSizeClass()} dropdown-toggle{$openedClass}" 
-                    type="button" id="{$this->id}" 
+                    type="button" id="dropdown-{$this->id}" 
                     data-bs-toggle="dropdown" 
                     aria-expanded="{$expanded}">
                 {$this->buttonLabel}
@@ -88,9 +68,9 @@ class Dropdown extends Drawer {
     }
 
     private function getItems(): string {
-        $darkClass = $this->isDark ? ' dropdown-menu-dark' : '';
+        $darkClass = $this->dark ? ' dropdown-menu-dark' : '';
         $openedClass = $this->opened && $this->preview ? ' show' : '';
-        switch($this->dropdownSide) {
+        switch($this->side) {
             case 'dropdown':
                 $style = $this->opened && $this->preview ? 'style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 42px);"' : '';
                 break;
@@ -110,7 +90,7 @@ class Dropdown extends Drawer {
         return "
             <ul class=\"dropdown-menu{$darkClass}{$openedClass}\"
                 {$style}
-                aria-labelledby=\"{$this->id}\">
+                aria-labelledby=\"dropdown-{$this->id}\">
                 " . (function() {
                     $items = '';
                     foreach ($this->items as $item) {
@@ -146,7 +126,7 @@ class Dropdown extends Drawer {
         $expanded = $this->opened && $this->preview ? 'true' : 'false';
 
         return <<<HTML
-            <div class="btn-group {$this->dropdownSide}">
+            <div class="btn-group {$this->side}">
                 {$this->getToggler()}
                 {$this->getSplit()}
                 {$this->getItems()}

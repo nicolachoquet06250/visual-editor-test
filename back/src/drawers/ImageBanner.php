@@ -8,22 +8,10 @@ use ve\helpers\{
 };
 
 class ImageBanner extends Drawer {
-    private string $image;
-    private string $title;
+    public string $image;
+    public string $title;
 
     private static bool $rendered = false;
-
-    public function __construct(
-        protected array $component
-    ) {
-        parent::__construct($component);
-
-        [
-            'image' => $this->image,
-            'title' => $this->title,
-            '_name' => $this->name
-        ] = $component;
-    }
 
     public function style(): string {
         if (!static::$rendered) {

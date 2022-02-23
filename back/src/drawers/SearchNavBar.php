@@ -5,26 +5,12 @@ namespace ve\drawers;
 use ve\helpers\Drawer;
 
 class SearchNavBar extends Drawer {
-    private string $logo;
-    private array $links;
-    private string $color;
-    private bool $defaultOpened;
-    private mixed $id;
+    public string $logo;
+    public array $links;
+    public string $modeColor;
+    public bool $opened;
 
-    public function __construct(
-        protected array $component
-    ) {
-        parent::__construct($component);
-
-        [
-            'logo' => $this->logo,
-            'links' => $this->links,
-            'mode-color' => $this->color,
-            'opened' => $this->defaultOpened
-        ] = $component;
-        $this->preview = $component['preview'] ?? false;
-        $this->id = uniqid();
-    }
+    public bool $preview = false;
 
     private function currentPageAttribute($label) {
         if (empty($_GET['page'])) {
@@ -43,7 +29,7 @@ class SearchNavBar extends Drawer {
     }
 
     private function getTheme(): array {
-        switch ($this->color) {
+        switch ($this->modeColor) {
             case '#CCCCCC':
                 $btnMode = 'success';
                 $mode = 'light';
@@ -146,8 +132,8 @@ class SearchNavBar extends Drawer {
 
         $id = uniqid();
 
-        $menuTogglerClassOpenedInMobile = $this->preview && $this->defaultOpened ? '' : ' collapsed';
-        $menuNavbarClassOpenedInMobile = $this->preview && $this->defaultOpened ? ' show' : '';
+        $menuTogglerClassOpenedInMobile = $this->preview && $this->opened ? '' : ' collapsed';
+        $menuNavbarClassOpenedInMobile = $this->preview && $this->opened ? ' show' : '';
         
         return <<<HTML
             {$this->getScript($mode)}

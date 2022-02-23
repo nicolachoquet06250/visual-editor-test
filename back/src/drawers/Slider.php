@@ -5,25 +5,11 @@ namespace ve\drawers;
 use ve\helpers\Drawer;
 
 class Slider extends Drawer {
-    private bool $auto;
-    private bool $indicators;
-    private bool $fadeAnimations;
-    private bool $preventCycling;
-    private array $slides;
-
-    public function __construct(
-        protected array $component
-    ) {
-        parent::__construct($component);
-
-        [
-            'auto' => $this->auto,
-            'show-indicators' => $this->indicators,
-            'fade-animations' => $this->fadeAnimations,
-            'prevent-cycling' => $this->preventCycling,
-            'slides' => $this->slides
-        ] = $component;
-    }
+    public bool $auto;
+    public bool $showIndicators;
+    public bool $fadeAnimations;
+    public bool $preventCycling;
+    public array $slides;
 
     public function getSlides(): string {
         $slides = '';
@@ -47,7 +33,7 @@ class Slider extends Drawer {
     }
 
     public function getIndicators(): string {
-        if (!$this->indicators || $this->fadeAnimations) {
+        if (!$this->showIndicators || $this->fadeAnimations) {
             return '';
         }
 

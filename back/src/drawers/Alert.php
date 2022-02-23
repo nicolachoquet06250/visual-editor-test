@@ -5,20 +5,8 @@ namespace ve\drawers;
 use ve\helpers\Drawer;
 
 class Alert extends Drawer {
-    private string $type;
-    private string $content;
-
-    public function __construct(
-        protected array $component
-    )
-    {
-        parent::__construct($component);
-
-        [
-            'type' => $this->type,
-            'content' => $this->content
-        ] = $component;
-    }
+    public string $type;
+    public string $content;
 
     public function draw(): string {
         $writtenType = $this->type === 'danger' ? 'Error' : ucfirst($this->type);

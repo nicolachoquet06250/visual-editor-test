@@ -7,27 +7,12 @@ use ve\helpers\Helper;
 
 class Form extends Drawer
 {
-    private string $method;
-    private string $action;
-    private array $elements;
-
-    public function __construct(
-        protected array $component
-    )
-    {
-        parent::__construct($component);
-
-        [
-            'method' => $this->method,
-            'destination' => $this->action,
-            'elements' => $this->elements
-        ] = $component;
-    }
+    public string $method;
+    public string $destination;
+    public array $elements;
 
     public function draw(): string
     {
-        $dump = Helper::dumpInVar($this->component);
-
         $form_body = '';
         foreach ($this->elements as $element) {
             [
@@ -111,7 +96,7 @@ class Form extends Drawer
         }
 
         return <<<HTML
-            <form class="row mb-2" action="{$this->action}" method="{$this->method}">
+            <form class="row mb-2" action="{$this->destination}" method="{$this->method}">
                 <div class="col-12 col-md-6 col-xl-3">
                     {$form_body}
                 </div>

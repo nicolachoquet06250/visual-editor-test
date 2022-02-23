@@ -5,21 +5,10 @@ namespace ve\drawers;
 use ve\helpers\Helper;
 
 class SearchNavBarWithTitle extends SearchNavBar {
-    private string $title;
-    private string $titleLink;
+    public string $title;
+    public string $url;
 
     private static bool $rendered = false;
-
-    public function __construct(
-        protected array $component
-    ) {
-        parent::__construct($component);
-
-        [
-            'label' => $this->title,
-            'url' => $this->titleLink
-        ] = $component;
-    }
 
     public function style(): string {
         if (!static::$rendered) {
@@ -7545,8 +7534,8 @@ class SearchNavBarWithTitle extends SearchNavBar {
     }
 
     public function draw(): string {
-        $linkTag = empty($this->titleLink) ? 'span' : "a href=\"{$this->titleLink}\"";
-        $linkEndTag = empty($this->titleLink) ? 'span' : 'a';
+        $linkTag = empty($this->url) ? 'span' : "a href=\"{$this->url}\"";
+        $linkEndTag = empty($this->url) ? 'span' : 'a';
 
         return (empty($this->title) ? '' : <<<HTML
             <header id="o-header" class="o-responsive fixed-center o-center-align fixed-center o-center-align o-onei">

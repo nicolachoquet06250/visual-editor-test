@@ -11,6 +11,12 @@ class TariffCartridge extends Drawer {
         '#a50f78' => 'purple'
     ];
 
+    public string $cartridgeColor;
+    public string $title;
+    public string $phoneNumber;
+    public string $describe;
+    public string $complementInfos;
+
     private static bool $rendered = false;
 
     public function style(): string {
@@ -309,29 +315,20 @@ class TariffCartridge extends Drawer {
     }
 
     public function draw(): string {
-        [
-            'cartridge-color' => $color,
-            'title' => $title,
-            'phone-number' => $phone,
-            'describe' => $describe,
-            'complement-infos' => $complement_infos,
-            '_name' => $name
-        ] = $this->component;
-
         return <<<HTML
             <div class="row">
                 <div class="col">
-                    <div class="ob1-tariff-cartridge {$this->colors[$color]}">
+                    <div class="ob1-tariff-cartridge {$this->colors[$this->cartridgeColor]}">
                         <span class="ob1-tariff-cartridge-label">
-                            {$title}
+                            {$this->title}
                         </span>
 
                         <div class="ob1-tariff-cartridge-global-container">
                             <div class="ob1-tariff-cartridge-container">
-                                <div class="ob1-tariff-cartridge-call-number">{$phone}</div>
+                                <div class="ob1-tariff-cartridge-call-number">{$this->phoneNumber}</div>
 
                                 <div class="ob1-tariff-cartridge-call-description">
-                                    {$describe}
+                                    {$this->describe}
                                 </div>
                             </div>
 
@@ -339,7 +336,7 @@ class TariffCartridge extends Drawer {
                         </div>
 
                         <p class="ob1-tariff-cartridge-description">
-                            {$complement_infos}
+                            {$this->complementInfos}
                         </p>
                     </div>
                 </div>

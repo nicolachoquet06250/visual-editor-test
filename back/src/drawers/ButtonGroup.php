@@ -6,29 +6,13 @@ use ve\helpers\Drawer;
 use ve\helpers\Helper;
 
 class ButtonGroup extends Drawer {
-    private string $label;
-    private bool $enable_button;
-    private array $buttons;
-    private bool $enable_checkbox;
-    private array $checkboxes;
-    private bool $enable_radio;
-    private array $radios;
-
-    public function __construct(
-        protected array $component
-    ) {
-        parent::__construct($component);
-
-        [
-            'label' => $this->label,
-            'enable-button-type' => $this->enable_button,
-            'buttons' => $this->buttons,
-            'enable-checkbox-type' => $this->enable_checkbox,
-            'checkboxes' => $this->checkboxes,
-            'enable-radio-type' => $this->enable_radio,
-            'radios' => $this->radios
-        ] = $component;
-    }
+    public string $label;
+    public bool $enableButtonType;
+    public array $buttons;
+    public bool $enableCheckboxType;
+    public array $checkboxes;
+    public bool $enableRadioType;
+    public array $radios;
 
     private function getButtonGroup(): string {
         $buttons = '';
@@ -105,11 +89,11 @@ class ButtonGroup extends Drawer {
     public function draw(): string {
         $method = 'getButtonGroup';
 
-        if ($this->enable_button) {
+        if ($this->enableButtonType) {
             $method = 'getButtonGroup';
-        } else if ($this->enable_checkbox) {
+        } else if ($this->enableCheckboxType) {
             $method = 'getCheckboxGroup';
-        } else if ($this->enable_radio) {
+        } else if ($this->enableRadioType) {
             $method = 'getRadioGroup';
         }
 
