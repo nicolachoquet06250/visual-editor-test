@@ -6,6 +6,7 @@ use ve\helpers\Drawer;
 
 class Accordion extends Drawer {
     public array $accordionItems;
+    public string $accordionMode;
     public string $_name;
     public string $content;
 
@@ -22,7 +23,7 @@ class Accordion extends Drawer {
             $headerClass = $opened ? '' : ' collapsed';
             $bodyClass = $opened ? ' show' : '';
             $expended = $opened ? 'true' : 'false';
-            $parent = $this->mode === 'simple' ? "data-bs-parent=\"#{$this->_name}-{$this->id}\"" : '';
+            $parent = $this->accordionMode === 'simple' ? "data-bs-parent=\"#{$this->_name}-{$this->id}\"" : '';
 
             $acc .= <<<HTML
                 <div class="accordion-item">
