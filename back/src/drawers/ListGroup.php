@@ -3,26 +3,13 @@
 namespace ve\drawers;
 
 use ve\helpers\Drawer;
-use ve\helpers\Helper;
 
 class ListGroup extends Drawer {
-    private bool $flush;
-    private bool $numbered;
-    private array $items;
+    public bool $flush;
+    public bool $numbered;
+    public array $items;
 
-    public function __construct(
-        protected array $component
-    ) {
-        parent::__construct($component);
-
-        [
-            'flush' => $this->flush,
-            'numbered' => $this->numbered,
-            'items' => $this->items
-        ] = $component;
-    }
-
-    private function getItems(): string {
+    protected function getItems(): string {
         $items = '';
         foreach ($this->items as $item) {
             [
@@ -105,10 +92,12 @@ class ListGroup extends Drawer {
         return $items;
     }
 
-    private function getColor(string $color): string {
+    protected function getColor(string $color): string {
         return match($color) {
             'black' => 'dark',
+            '#000000' => 'dark',
             'white' => 'white',
+            '#FFFFFF' => 'white',
             '#FF7900' => 'primary',
             '#50BE87' => 'success',
             '#32C832' => 'success',

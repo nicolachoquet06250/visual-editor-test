@@ -15,7 +15,9 @@ import {
   slider_name, Slider,
   simple_collapse_name, SimpleCollapse,
   dropdown_name, Dropdown,
-  list_group_name, ListGroup
+  list_group_name, ListGroup,
+  detailed_list_group_name, DetailedListGroup,
+  checkbox_list_group_name, CheckboxListGroup
 } from './components';
 import { spinner_tag, Spinner } from './ce';
 import env from './env.json';
@@ -38,6 +40,8 @@ editor.registerComponent(slider_name, Slider);
 editor.registerComponent(simple_collapse_name, SimpleCollapse);
 editor.registerComponent(dropdown_name, Dropdown);
 editor.registerComponent(list_group_name, ListGroup);
+editor.registerComponent(detailed_list_group_name, DetailedListGroup);
+editor.registerComponent(checkbox_list_group_name, CheckboxListGroup);
 
 editor.defineElement();
 
