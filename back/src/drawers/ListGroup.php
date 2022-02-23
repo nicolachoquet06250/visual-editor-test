@@ -92,11 +92,12 @@ class ListGroup extends Drawer {
         return $items;
     }
 
-    protected function getColor(string $color): string {
+    protected function getColor(?string $color): string {
         return match($color) {
             'black' => 'dark',
             '#000000' => 'dark',
             'white' => 'white',
+            null => 'white',
             '#FFFFFF' => 'white',
             '#FF7900' => 'primary',
             '#50BE87' => 'success',
