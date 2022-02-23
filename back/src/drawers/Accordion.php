@@ -5,6 +5,7 @@ namespace ve\drawers;
 use ve\helpers\Drawer;
 
 class Accordion extends Drawer {
+    public array $items;
     public string $_name;
     public string $content;
 
