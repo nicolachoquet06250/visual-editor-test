@@ -156,6 +156,10 @@ export const component = {
                     ])
                 ]
             }
-        )
+        ),
+        Checkbox('show-final-button', {
+            label: 'Show final button (Only on preview)',
+            default: false
+        })
     ]
 };
