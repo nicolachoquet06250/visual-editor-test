@@ -5,7 +5,7 @@ namespace ve\drawers;
 use ve\helpers\Helper;
 
 class SearchNavBarWithTitle extends SearchNavBar {
-    public string $title;
+    public string $label;
     public string $url;
 
     private static bool $rendered = false;
@@ -7537,9 +7537,9 @@ class SearchNavBarWithTitle extends SearchNavBar {
         $linkTag = empty($this->url) ? 'span' : "a href=\"{$this->url}\"";
         $linkEndTag = empty($this->url) ? 'span' : 'a';
 
-        return (empty($this->title) ? '' : <<<HTML
+        return (empty($this->label) ? '' : <<<HTML
             <header id="o-header" class="o-responsive fixed-center o-center-align fixed-center o-center-align o-onei">
-        HTML) . parent::draw() . (empty($this->title) ? '' : <<<HTML
+        HTML) . parent::draw() . (empty($this->label) ? '' : <<<HTML
             <div id="o-service" class="o-service-theme-light">
                 <div id="o-service-wrapper" class="o-marge" data-widthlimit="">
                     <div id="o-service-content">
@@ -7548,7 +7548,7 @@ class SearchNavBarWithTitle extends SearchNavBar {
                                 <div id="polarisHeader" class="crc-tms-zone crc-tms-zone--res_pro">
                                     <span class="service">
                                         <{$linkTag}>
-                                            {$this->title}
+                                            {$this->label}
                                         </{$linkEndTag}>
                                     </span>
                                 </div>
