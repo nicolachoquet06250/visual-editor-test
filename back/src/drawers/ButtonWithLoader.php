@@ -23,7 +23,7 @@ class ButtonWithLoader extends Drawer {
 
     public function style(): string {
         return <<<CSS
-            .spinner-border {
+            .spinner-border.show-label {
                 margin-right: 15px;
             }
         CSS;
@@ -79,7 +79,7 @@ class ButtonWithLoader extends Drawer {
                     <div class="col-12">
                         <button id="spinner-{$this->id}" class="btn btn-primary" 
                                 type="button" disabled>
-                            <span class="spinner-border spinner-border-sm" 
+                            <span class="spinner-border spinner-border-sm show-label" 
                                 role="status" aria-hidden="true"></span>
                             
                             {$this->spinnerLabel}
