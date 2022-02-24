@@ -46,7 +46,7 @@ export const component = {
                         })
                     ]),
                     Repeater('ajax-headers', {
-                        label: 'Headers',
+                        label: 'AJAX Headers',
                         addLabel: 'Add Header',
                         fields: [
                             Row([
@@ -62,7 +62,7 @@ export const component = {
                         ]
                     }),
                     Repeater('ajax-body', {
-                        label: 'Headers',
+                        label: 'AJAX Body',
                         addLabel: 'Add Body Value',
                         fields: [
                             Row([
