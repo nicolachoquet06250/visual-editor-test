@@ -7557,7 +7557,7 @@ class SearchNavBarWithTitle extends SearchNavBar {
                     </div>
                 </div>
             </div>
-        HTML) . (empty($this->title) ? '' : <<<HTML
+        HTML) . (empty($this->label) ? '' : <<<HTML
             </header>
         HTML);
     }
