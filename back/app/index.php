@@ -66,6 +66,9 @@
     $app->post('/preview', [VeController::class, 'preview']);
     $app->post('/login/', [LoginController::class, 'check_password']);
 
+    $app->get('/test', [VeController::class, 'test']);
+    $app->post('/test', [VeController::class, 'test']);
+
     if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
         /**
          * Catch-all route to serve a 404 Not Found page if none of the routes match

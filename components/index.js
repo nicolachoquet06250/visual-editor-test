@@ -16,3 +16,4 @@ export { name as dropdown_name, component as Dropdown } from './Dropdown';
 export { name as list_group_name, component as ListGroup } from './ListGroup';
 export { name as detailed_list_group_name, component as DetailedListGroup } from './DetailedListGroup';
 export { name as checkbox_list_group_name, component as CheckboxListGroup } from './CheckboxListGroup';
+export { name as button_with_loader_name, component as ButtonWithLoader } from './ButtonWithLoader';

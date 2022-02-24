@@ -187,4 +187,13 @@ class VeController {
         $response->getBody()->write($json);
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public static function test(Request $request, Response $response, array $args): Response {
+        sleep(15);
+
+        $response->getBody()->write(json_encode([
+            'status' => 'ok'
+        ]));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }
